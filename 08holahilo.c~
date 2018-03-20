@@ -5,7 +5,7 @@
 
 void *hola(void *pArg){
     int myNum = *((int*)pArg);
-    printf("soy el hillo numero  %d \n", (int)pthread_self());
+    printf("soy el hillo numero  %d con id %d\n", myNum, (int)pthread_self());
     pthread_exit(NULL);
 } 
 

@@ -6,7 +6,7 @@
 void *hola(void *pArg){
     int myNum = *((int*)pArg);
     printf("soy el hillo numero  %d con id %d\n", myNum, (int)pthread_self());
-    pthread_exit(NULL);
+    pthread_exit(NULL);  // ((void*)&cuenta)  cuenta es un entero que lleva el valor de la suma
 } 
 
 int main(){
@@ -20,7 +20,7 @@ int main(){
         }
     }
     for (i=0; i<NUM_HILOS; i++)
-        pthread_join(tid[i], NULL);
+        pthread_join(tid[i], NULL);  //en el join se recibe el valor que se pasa como referencia en el pthread_exit
 
     return 0;
 }

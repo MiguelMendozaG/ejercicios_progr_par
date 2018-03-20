@@ -18,18 +18,20 @@ void *hilo(thr_param_t *p){
     pthread_exit(&p->id);
 } 
 
-int main(){
-    int i, tNum[NUM_HILOS];
-    pthread_t tid[NUM_HILOS];
+int main(int argc, char *argv[]){
+    int i, *res;
+    printf ("Creando hilos... \n");
     for (i = 0; i<NUM_HILOS; i++){
-        tNum[i] = i;
-        if(pthread_create(&tid[i], NULL, hola, &tNum[i])){
-            printf("\n error al crear el hilo \n ");
-            exit(0);
-        }
+        param[i].cadena=strdup("Hola, soy el hilo ");
+        param[i].id = i;
+        pthread_create(&tabla_thr,NULL, (void *)&hilo, (void *)&param[i]);
     }
-    for (i=0; i<NUM_HILOS; i++)
-        pthread_join(tid[i], NULL);
 
+    printf("Hilos creados. Esperando que terminen... \n");
+    for(i=0; i<NUM_HILOS; i++){
+        pthread_join(tabla_thr[i], (void *)&res);
+        printf("El hilo %d devolvio el valor %d \n", i,*res);
+    }
+    printf ("Todos los hilos finalizados... \n");
     return 0;
 }
